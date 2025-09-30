@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>H&H Weinfabrik</title>
+<style>
+body { margin:0; font-family:Arial,sans-serif; background-color:#b30000; color:#fff; scroll-behavior: smooth; }
+header { position: sticky; top:0; background-color:#800000; z-index:1000; }
+nav { display:flex; justify-content:center; padding:15px 0; }
+nav a { margin:0 20px; color:#fff; text-decoration:underline; font-size:1.2em; cursor:pointer; }
+nav a:hover { color:#ffcccb; }
+header h1 { text-align:center; margin:20px 0 0 0; font-size:2.5em; letter-spacing:2px; }
+section { max-width:1000px; margin:auto; padding:50px 20px; display:none; }
+section.active { display:block; }
+.breadcrumb { margin-bottom:20px; font-size:0.9em; color:#ffcccb; }
+.wine-cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:20px; }
+.card { background-color:#990000; border-radius:15px; padding:20px; transition:transform 0.3s,box-shadow 0.3s; text-align:center; }
+.card:hover { transform:translateY(-10px); box-shadow:0 10px 20px rgba(0,0,0,0.4); }
+.card h3 { margin-top:0; }
+.price-list { list-style:none; padding:0; margin:0; }
+.price-list li { display:flex; justify-content:space-between; padding:12px 20px; background-color:#990000; margin-bottom:10px; border-radius:10px; transition:background-color 0.3s; }
+.price-list li:hover { background-color:#cc0000; }
+footer { text-align:center; padding:20px; background-color:#800000; margin-top:50px; }
+
+/* Bestellübersicht */
+.order-list { max-width: 600px; margin: auto; }
+.order-item { display: flex; justify-content: space-between; align-items: center; background-color: #990000; padding: 10px 20px; border-radius: 10px; margin-bottom: 10px; }
+.quantity-controls button { padding: 5px 10px; margin: 0 5px; background-color: #cc0000; color: #fff; border: none; border-radius: 5px; cursor: pointer; }
+.quantity-controls button:hover { background-color: #ff4d4d; }
+.quantity-controls span { min-width: 20px; display: inline-block; text-align: center; }
+#submitOrder { display:block; margin:20px auto; padding:10px 20px; font-size:1.2em; border:none; border-radius:8px; background-color:#cc0000; color:white; cursor:pointer; }
+#submitOrder:hover { background-color:#ff4d4d; }
+
+/* Admin-Bereich */
+#admin { background-color:#800000; padding:20px; border-radius:10px; max-width:600px; margin:20px auto; }
+#allOrders { list-style:none; padding:0; max-height:400px; overflow-y:auto; }
+#allOrders li { background-color:#990000; padding:15px; margin-bottom:10px; border-radius:8px; display:flex; flex-direction:column; box-shadow:0 4px 6px rgba(0,0,0,0.3);}
+#allOrders li div { margin-bottom:3px; }
+#allOrders li button { align-self:flex-end; margin-top:5px; padding:5px 10px; background-color:#cc0000; color:white; border:none; border-radius:5px; cursor:pointer; font-weight:bold; }
+#allOrders li button:hover { background-color:#ff4d4d; }
+</style>
+</head>
+<body>
+
+<header>
+<h1>H&H Weinfabrik</h1>
+<nav>
+<a onclick="showSection('start')">Startseite</a>
+<a onclick="showSection('weinsorten')">Weinsorten</a>
+<a onclick="showSection('preisliste')">Preisliste</a>
+<a onclick="showSection('bestellen')">Bestellen</a>
+<a onclick="showSection('kontakte')">Kontakte</a>
+</nav>
+</header>
+
+<section id="start" class="active">
+<div class="breadcrumb">Startseite</div>
+<h2>Willkommen bei der Website der H&H Weinfabrik</h2>
+<p>Hier finden Sie unsere erlesenen Weinsorten und Preise. Nutzen Sie die Navigation, um mehr zu erfahren.</p>
+</section>
+
+<section id="weinsorten">
+<div class="breadcrumb">Startseite > Weinsorten</div>
+<div class="wine-cards">
+<div class="card"><h3>Riesling</h3><p>Frisch und fruchtig, perfekt zu Fisch und Geflügel.</p></div>
+<div class="card"><h3>Spätburgunder</h3><p>Eleganter Rotwein mit feinen Beerennoten.</p></div>
+<div class="card"><h3>Merlot</h3><p>Weich und samtig, ideal zu rotem Fleisch.</p></div>
+<div class="card"><h3>Chardonnay</h3><p>Kräftiger Weißwein mit feinen Vanillenoten.</p></div>
+<div class="card"><h3>Chardonnay Barrique</h3><p>Kräftiger Weißwein mit feinen Holznoten.</p></div>
+<div class="card"><h3>Cuvée (Prestige)</h3><p>Elegante Mischung aus besten Trauben, exklusiv für Genießer.</p></div>
+<div class="card"><h3>Dornfelder Rotwein</h3><p>Fruchtiger Rotwein mit tiefroter Farbe und feinem Aroma.</p></div>
+<div class="card"><h3>Gewürztaminer (Auslese)</h3><p>Intensiv aromatischer Weißwein, süß und würzig.</p></div>
+<div class="card"><h3>Grauburgunder (Feinherb)</h3><p>Feinherber Weißwein mit zartem Fruchtaroma.</p></div>
+<div class="card"><h3>H&H Sekt Brut</h3><p>Spritziger Sekt mit feiner Perlage, ideal für Feste.</p></div>
+<div class="card"><h3>Riesling (Kabinett)</h3><p>Frisch und leicht, harmonisch im Geschmack.</p></div>
+<div class="card"><h3>Silvaner (Trocken)</h3><p>Trockener Weißwein mit leichter Säure und angenehmer Frische.</p></div>
+<div class="card"><h3>Spätburgunder Reserve</h3><p>Kräftiger Rotwein mit langem Abgang und feiner Struktur.</p></div>
+<div class="card"><h3>Weißburgunder (Classic)</h3><p>Leicht und elegant, passt zu vielen Gerichten.</p></div>
+</div>
+</section>
+
+<section id="preisliste">
+<div class="breadcrumb">Startseite > Preisliste</div>
+<ul class="price-list">
+<li><span>Riesling</span><span>€12</span></li>
+<li><span>Spätburgunder</span><span>€15</span></li>
+<li><span>Merlot</span><span>€14</span></li>
+<li><span>Chardonnay</span><span>€13</span></li>
+<li><span>Chardonnay Barrique</span><span>€18</span></li>
+<li><span>Cuvée (Prestige)</span><span>€25</span></li>
+<li><span>Dornfelder Rotwein</span><span>€16</span></li>
+<li><span>Gewürztaminer (Auslese)</span><span>€20</span></li>
+<li><span>Grauburgunder (Feinherb)</span><span>€14</span></li>
+<li><span>H&H Sekt Brut</span><span>€22</span></li>
+<li><span>Riesling (Kabinett)</span><span>€13</span></li>
+<li><span>Silvaner (Trocken)</span><span>€12</span></li>
+<li><span>Spätburgunder Reserve</span><span>€28</span></li>
+<li><span>Weißburgunder (Classic)</span><span>€14</span></li>
+</ul>
+</section>
+
+<section id="bestellen">
+<div class="breadcrumb">Startseite > Bestellen</div>
+<h2>Bestellübersicht</h2>
+<p>Wähle die Weine aus, die du bestellen möchtest, und passe die Menge an:</p>
+<div class="order-list"></div>
+<button id="submitOrder">Bestellung aufgeben</button>
+
+<div id="admin">
+<h3>Admin: Alle Bestellungen</h3>
+<ul id="allOrders"></ul>
+</div>
+</section>
+
+<footer>
+<p>© 2025 H&H Weinfabrik</p>
+</footer>
+
+<script>
+// Navigation
+function showSection(id){
+    document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+}
+
+// Bestell-Logik
+const cartData = {};
+const wineList=["Riesling","Spätburgunder","Merlot","Chardonnay","Chardonnay Barrique","Cuvée (Prestige)","Dornfelder Rotwein","Gewürztaminer (Auslese)","Grauburgunder (Feinherb)","H&H Sekt Brut","Riesling (Kabinett)","Silvaner (Trocken)","Spätburgunder Reserve","Weißburgunder (Classic)"];
+const allOrders=[];
+
+// Dynamisch Bestellzeilen erzeugen
+const orderListDiv=document.querySelector('.order-list');
+wineList.forEach(wine=>{
+    const id=wine.toLowerCase().replace(/[^a-z0-9]/g,'-');
+    cartData[id]=0;
+    const div=document.createElement('div');
+    div.className='order-item';
+    div.innerHTML=`<span>${wine}</span>
+    <div class="quantity-controls">
+        <button onclick="decrease('${id}')">-</button>
+        <span id="${id}-count">0</span>
+        <button onclick="increase('${id}')">+</button>
+    </div>`;
+    orderListDiv.appendChild(div);
+});
+
+function increase(wine){ cartData[wine]++; document.getElementById(`${wine}-count`).textContent=cartData[wine]; }
+function decrease(wine){ if(cartData[wine]>0) cartData[wine]--; document.getElementById(`${wine}-count`).textContent=cartData[wine]; }
+
+// Angenehmer Benachrichtigungston
+function playNotificationSound(){
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const times = [0, 0.3];
+    times.forEach(offset => {
+        const o = ctx.createOscillator();
+        const g = ctx.createGain();
+        o.connect(g); g.connect(ctx.destination);
+        o.type = "triangle";
+        o.frequency.setValueAtTime(700, ctx.currentTime + offset);
+        g.gain.setValueAtTime(0, ctx.currentTime + offset);
+        g.gain.linearRampToValueAtTime(0.25, ctx.currentTime + offset + 0.05);
+        g.gain.linearRampToValueAtTime(0, ctx.currentTime + offset + 0.3);
+        o.start(ctx.currentTime + offset);
+        o.stop(ctx.currentTime + offset + 0.3);
+    });
+}
+
+// Bestellung abgeben
+document.getElementById('submitOrder').addEventListener('click',function(){
+    let orderMessage={};
+    let hasItems=false;
+    for(const wine in cartData){ if(cartData[wine]>0){ orderMessage[wine.replace(/-/g,' ')]=cartData[wine]; hasItems=true; } }
+    if(!hasItems){ alert("Bitte wähle zuerst mindestens einen Wein aus."); return; }
+
+    // Admin-Liste aktualisieren
+    const ul=document.getElementById('allOrders');
+    const li=document.createElement('li');
+    for(const wineName in orderMessage){
+        const div=document.createElement('div');
+        div.textContent=`${wineName}: ${orderMessage[wineName]}`;
+        li.appendChild(div);
+    }
+    const deleteBtn=document.createElement('button');
+    deleteBtn.textContent="Löschen";
+    deleteBtn.onclick=()=>{ ul.removeChild(li); const index=allOrders.indexOf(orderMessage); if(index>-1) allOrders.splice(index,1); };
+    li.appendChild(deleteBtn);
+    ul.appendChild(li);
+    allOrders.push(orderMessage);
+
+    // Ton & Benachrichtigung
+    playNotificationSound();
+    alert("Bestellung erfolgreich aufgegeben!");
+
+    // Reset
+    for(const wine in cartData){ cartData[wine]=0; const el=document.getElementById(`${wine}-count`); if(el) el.textContent=0; }
+});
+</script>
+</body>
+</html>
